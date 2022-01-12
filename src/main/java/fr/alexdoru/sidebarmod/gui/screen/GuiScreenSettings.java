@@ -6,10 +6,6 @@ import net.minecraft.util.EnumChatFormatting;
 
 public class GuiScreenSettings extends GuiScreenSidebar {
 
-    private byte byte0 = -16;
-    private GuiButton buttonToggle;
-    private GuiButton buttonNumbers;
-    private GuiButton buttonShadow;
     private GuiSlider sliderScale;
 
     public GuiScreenSettings(SidebarMod mod) {
@@ -17,20 +13,16 @@ public class GuiScreenSettings extends GuiScreenSidebar {
     }
 
     public void initGui() {
-        this.buttonList.add(this.buttonToggle = new GuiButton(0, getCenter() - 75, getRowPos(1), 150, 20, "Sidebar: " + getSuffix(this.sidebar.enabled)));
-        this.buttonList.add(this.buttonNumbers = new GuiButton(1, getCenter() - 75, getRowPos(2), 150, 20, "Red Numbers: " + getSuffix(this.sidebar.redNumbers)));
-        this.buttonList.add(this.buttonShadow = new GuiButton(2, getCenter() - 75, getRowPos(3), 150, 20, "Shadow: " + getSuffix(this.sidebar.shadow)));
+        this.buttonList.add(new GuiButton(0, getCenter() - 75, getRowPos(1), 150, 20, "Sidebar: " + getSuffix(this.sidebar.enabled)));
+        this.buttonList.add(new GuiButton(1, getCenter() - 75, getRowPos(2), 150, 20, "Red Numbers: " + getSuffix(this.sidebar.redNumbers)));
+        this.buttonList.add(new GuiButton(2, getCenter() - 75, getRowPos(3), 150, 20, "Shadow: " + getSuffix(this.sidebar.shadow)));
         this.buttonList.add(new GuiButton(3, getCenter() - 75, getRowPos(4), 150, 20, "Change Background"));
         this.buttonList.add(this.sliderScale = new GuiSlider(4, getCenter() - 75, getRowPos(5), 150, 20, "Scale: ", "%", 50.0D, 200.0D, Math.round(this.sidebar.scale * 100.0F), false, true));
         this.buttonList.add(new GuiButton(5, getCenter() - 75, getRowPos(6), 150, 20, "Reset Sidebar"));
     }
 
-    public void onGuiClosed() {
-        super.onGuiClosed();
-    }
-
     public int getRowPos(int rowNumber) {
-        return this.height / 4 + 24 * rowNumber - 24 + this.byte0;
+        return this.height / 4 + 24 * rowNumber - 40;
     }
 
     public int getCenter() {

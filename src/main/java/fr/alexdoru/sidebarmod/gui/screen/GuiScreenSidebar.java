@@ -10,8 +10,8 @@ import java.io.IOException;
 
 public class GuiScreenSidebar extends GuiScreen {
 
-    protected SidebarMod mod;
-    protected GuiSidebar sidebar;
+    protected final SidebarMod mod;
+    protected final GuiSidebar sidebar;
     private boolean dragging;
     private int lastX;
     private int lastY;

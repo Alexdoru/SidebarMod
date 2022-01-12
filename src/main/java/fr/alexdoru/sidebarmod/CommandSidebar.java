@@ -2,7 +2,6 @@ package fr.alexdoru.sidebarmod;
 
 import fr.alexdoru.sidebarmod.gui.screen.GuiScreenSettings;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraftforge.common.MinecraftForge;
@@ -11,7 +10,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class CommandSidebar extends CommandBase {
 
-    private SidebarMod mod;
+    private final SidebarMod mod;
 
     public CommandSidebar(SidebarMod mod) {
         this.mod = mod;
@@ -36,6 +35,6 @@ public class CommandSidebar extends CommandBase {
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event) {
         MinecraftForge.EVENT_BUS.unregister(this);
-        Minecraft.getMinecraft().displayGuiScreen((GuiScreen) new GuiScreenSettings(this.mod));
+        Minecraft.getMinecraft().displayGuiScreen(new GuiScreenSettings(this.mod));
     }
 }

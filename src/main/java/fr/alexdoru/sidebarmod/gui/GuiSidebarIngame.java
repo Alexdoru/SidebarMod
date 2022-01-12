@@ -9,7 +9,7 @@ import net.minecraftforge.client.GuiIngameForge;
 
 public class GuiSidebarIngame extends GuiIngameForge {
 
-    private SidebarMod mod;
+    private final SidebarMod mod;
 
     public GuiSidebarIngame(SidebarMod mod, Minecraft mc) {
         super(mc);
