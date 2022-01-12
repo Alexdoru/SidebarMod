@@ -20,13 +20,14 @@ import java.io.File;
 public class SidebarMod {
 
     private final Minecraft mc = Minecraft.getMinecraft();
-    private File saveFile;
+    private File configFile;
+    private Configuration config;
     private GuiSidebar guiSidebar;
     private GuiSidebarIngame ingame;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        this.saveFile = event.getSuggestedConfigurationFile();
+        this.configFile = event.getSuggestedConfigurationFile();
     }
 
     @EventHandler
@@ -35,11 +36,12 @@ public class SidebarMod {
         ClientCommandHandler.instance.registerCommand(new CommandSidebar(this));
         this.guiSidebar = new GuiSidebar();
         this.ingame = new GuiSidebarIngame(this, this.mc);
+        config = new Configuration(this.configFile);
         loadConfig();
     }
 
     @SubscribeEvent
-    public void onClientTick(TickEvent.ClientTickEvent event) {
+    public void onClientTick(TickEvent.ClientTickEvent event) { // TODO delete that and call via ASM
         if (!(this.mc.ingameGUI instanceof GuiSidebarIngame))
             this.mc.ingameGUI = this.ingame;
     }
@@ -49,13 +51,11 @@ public class SidebarMod {
     }
 
     public void saveConfig() {
-        Configuration config = new Configuration(this.saveFile);
         updateConfig(config, false);
         config.save();
     }
 
     private void loadConfig() {
-        Configuration config = new Configuration(this.saveFile);
         config.load();
         updateConfig(config, true);
     }
