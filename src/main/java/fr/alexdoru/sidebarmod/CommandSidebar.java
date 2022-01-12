@@ -11,31 +11,31 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class CommandSidebar extends CommandBase {
 
-  private SidebarMod mod;
-  
-  public CommandSidebar(SidebarMod mod) {
-    this.mod = mod;
-  }
-  
-  public String getCommandName() {
-    return "sidebarmod";
-  }
-  
-  public String getCommandUsage(ICommandSender sender) {
-    return "/sidebarmod";
-  }
-  
-  public boolean canCommandSenderUseCommand(ICommandSender sender) {
-    return true;
-  }
-  
-  public void processCommand(ICommandSender sender, String[] args) {
-    MinecraftForge.EVENT_BUS.register(this);
-  }
-  
-  @SubscribeEvent
-  public void onClientTick(TickEvent.ClientTickEvent event) {
-    MinecraftForge.EVENT_BUS.unregister(this);
-    Minecraft.getMinecraft().displayGuiScreen((GuiScreen)new GuiScreenSettings(this.mod));
-  }
+    private SidebarMod mod;
+
+    public CommandSidebar(SidebarMod mod) {
+        this.mod = mod;
+    }
+
+    public String getCommandName() {
+        return "sidebarmod";
+    }
+
+    public String getCommandUsage(ICommandSender sender) {
+        return "/sidebarmod";
+    }
+
+    public boolean canCommandSenderUseCommand(ICommandSender sender) {
+        return true;
+    }
+
+    public void processCommand(ICommandSender sender, String[] args) {
+        MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    @SubscribeEvent
+    public void onClientTick(TickEvent.ClientTickEvent event) {
+        MinecraftForge.EVENT_BUS.unregister(this);
+        Minecraft.getMinecraft().displayGuiScreen((GuiScreen) new GuiScreenSettings(this.mod));
+    }
 }
