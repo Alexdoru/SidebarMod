@@ -1,42 +1,41 @@
-package fr.alexdoru.sidebarmod.gui.screen;
+package fr.alexdoru.sidebarmod.gui.config;
 
 import fr.alexdoru.sidebarmod.SidebarMod;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraftforge.fml.client.config.GuiSlider;
 
-public class GuiScreenSettings extends GuiScreenSidebar {
+public class ConfigGuiScreen extends ConfigGuiScreenWithSidebar {
 
+    private GuiButton buttonToggle;
+    private GuiButton buttonNumbers;
+    private GuiButton buttonShadow;
     private GuiSlider sliderScale;
 
-    public GuiScreenSettings(SidebarMod mod) {
+    public ConfigGuiScreen(SidebarMod mod) {
         super(mod);
     }
 
+    @Override
     public void initGui() {
-        this.buttonList.add(new GuiButton(0, getCenter() - 75, getRowPos(1), 150, 20, "Sidebar: " + getSuffix(this.sidebar.enabled)));
-        this.buttonList.add(new GuiButton(1, getCenter() - 75, getRowPos(2), 150, 20, "Red Numbers: " + getSuffix(this.sidebar.redNumbers)));
-        this.buttonList.add(new GuiButton(2, getCenter() - 75, getRowPos(3), 150, 20, "Shadow: " + getSuffix(this.sidebar.shadow)));
+        this.buttonList.add(buttonToggle = new GuiButton(0, getCenter() - 75, getRowPos(1), 150, 20, "Sidebar: " + getSuffix(this.sidebar.enabled)));
+        this.buttonList.add(buttonNumbers = new GuiButton(1, getCenter() - 75, getRowPos(2), 150, 20, "Red Numbers: " + getSuffix(this.sidebar.redNumbers)));
+        this.buttonList.add(buttonShadow = new GuiButton(2, getCenter() - 75, getRowPos(3), 150, 20, "Shadow: " + getSuffix(this.sidebar.shadow)));
         this.buttonList.add(new GuiButton(3, getCenter() - 75, getRowPos(4), 150, 20, "Change Background"));
         this.buttonList.add(this.sliderScale = new GuiSlider(4, getCenter() - 75, getRowPos(5), 150, 20, "Scale: ", "%", 50.0D, 200.0D, Math.round(this.sidebar.scale * 100.0F), false, true));
         this.buttonList.add(new GuiButton(5, getCenter() - 75, getRowPos(6), 150, 20, "Reset Sidebar"));
     }
 
-    public int getRowPos(int rowNumber) {
-        return this.height / 4 + 24 * rowNumber - 40;
-    }
-
-    public int getCenter() {
-        return this.width / 2;
-    }
-
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
-        if (this.sliderScale.dragging)
+        if (this.sliderScale.dragging) {
             this.sidebar.scale = this.sliderScale.getValueInt() / 100.0F;
+        }
     }
 
-    protected void actionPerformed(GuiButton button) {
+    @Override
+    public void actionPerformed(GuiButton button) {
         switch (button.id) {
             case 0:
                 this.sidebar.enabled = !this.sidebar.enabled;
@@ -51,22 +50,26 @@ public class GuiScreenSettings extends GuiScreenSidebar {
                 button.displayString = "Shadow: " + getSuffix(this.sidebar.shadow);
                 break;
             case 3:
-                this.mc.displayGuiScreen(new GuiScreenBackground(this, this.mod));
+                this.mc.displayGuiScreen(new ConfigGuiScreenColors(this, this.mod));
                 break;
             case 5:
-                this.sidebar.scale = 1.0F;
+                this.sidebar.enabled = true;
+                this.sidebar.redNumbers = true;
+                this.sidebar.shadow = false;
                 this.sidebar.color = 0;
                 this.sidebar.alpha = 50;
                 this.sidebar.chromaEnabled = false;
                 this.sidebar.chromaSpeed = 2;
+                this.sidebar.scale = 1.0F;
+                this.sidebar.offsetY = this.sidebar.offsetX = 0;
+
+                this.buttonToggle.displayString = "Sidebar: " + getSuffix(true);
+                this.buttonNumbers.displayString = "Red Numbers: " + getSuffix(true);
+                this.buttonShadow.displayString = "Shadow: " + getSuffix(false);
                 this.sliderScale.setValue(100.0D);
                 this.sliderScale.updateSlider();
-                this.sidebar.offsetY = this.sidebar.offsetX = 0;
                 break;
         }
     }
 
-    private String getSuffix(boolean enabled) {
-        return enabled ? (EnumChatFormatting.GREEN + "Enabled") : (EnumChatFormatting.RED + "Disabled");
-    }
 }
