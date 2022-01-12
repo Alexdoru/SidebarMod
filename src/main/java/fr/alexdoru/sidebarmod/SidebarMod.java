@@ -3,8 +3,6 @@ package fr.alexdoru.sidebarmod;
 import fr.alexdoru.sidebarmod.gui.GuiSidebar;
 import fr.alexdoru.sidebarmod.gui.GuiSidebarIngame;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiIngame;
-import net.minecraft.command.ICommand;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
@@ -34,7 +32,7 @@ public class SidebarMod {
     @EventHandler
     public void init(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(this);
-        ClientCommandHandler.instance.registerCommand((ICommand) new CommandSidebar(this));
+        ClientCommandHandler.instance.registerCommand(new CommandSidebar(this));
         this.guiSidebar = new GuiSidebar();
         this.ingame = new GuiSidebarIngame(this, this.mc);
         loadConfig();
@@ -43,7 +41,7 @@ public class SidebarMod {
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event) {
         if (!(this.mc.ingameGUI instanceof GuiSidebarIngame))
-            this.mc.ingameGUI = (GuiIngame) this.ingame;
+            this.mc.ingameGUI = this.ingame;
     }
 
     public GuiSidebar getSidebarGui() {

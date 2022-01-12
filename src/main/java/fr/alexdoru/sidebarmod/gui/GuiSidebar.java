@@ -14,7 +14,7 @@ import java.util.List;
 
 public class GuiSidebar extends Gui {
 
-    private FontRenderer fr = (Minecraft.getMinecraft()).fontRendererObj;
+    private final FontRenderer fr = (Minecraft.getMinecraft()).fontRendererObj;
     private int sidebarX;
     private int sidebarY;
     private int sidebarWidth;
@@ -34,7 +34,7 @@ public class GuiSidebar extends Gui {
         float mscale = this.scale - 1.0F;
         float minX = this.sidebarX - this.sidebarWidth * mscale;
         float maxX = minX + this.sidebarWidth * this.scale;
-        float maxY = this.sidebarY + (this.sidebarHeight / 2) * mscale;
+        float maxY = (this.sidebarY + (this.sidebarHeight / 2)) * mscale;
         float minY = maxY - this.sidebarHeight * this.scale;
         return (mouseX > minX && mouseX < maxX && mouseY > minY - this.fr.FONT_HEIGHT * this.scale && mouseY < maxY);
     }
@@ -44,14 +44,14 @@ public class GuiSidebar extends Gui {
             return;
         FontRenderer fr = (Minecraft.getMinecraft()).fontRendererObj;
         Scoreboard scoreboard = sidebar.getScoreboard();
-        List<Score> scores = new ArrayList<Score>();
+        List<Score> scores = new ArrayList<>();
         this.sidebarWidth = fr.getStringWidth(sidebar.getDisplayName());
         for (Score score : scoreboard.getSortedScores(sidebar)) {
             String name = score.getPlayerName();
             if (scores.size() < 15 && name != null && !name.startsWith("#")) {
                 ScorePlayerTeam scorePlayerTeam = scoreboard.getPlayersTeam(name);
                 String s2 = this.redNumbers ? (": " + EnumChatFormatting.RED + score.getScorePoints()) : "";
-                String str = ScorePlayerTeam.formatPlayerName((Team) scorePlayerTeam, name) + s2;
+                String str = ScorePlayerTeam.formatPlayerName(scorePlayerTeam, name) + s2;
                 this.sidebarWidth = Math.max(this.sidebarWidth, fr.getStringWidth(str));
                 scores.add(score);
             }
@@ -68,7 +68,7 @@ public class GuiSidebar extends Gui {
         for (Score score : scores) {
             index++;
             ScorePlayerTeam team = scoreboard.getPlayersTeam(score.getPlayerName());
-            String s1 = ScorePlayerTeam.formatPlayerName((Team) team, score.getPlayerName());
+            String s1 = ScorePlayerTeam.formatPlayerName(team, score.getPlayerName());
             String s2 = EnumChatFormatting.RED + "" + score.getScorePoints();
             if (!this.redNumbers)
                 s2 = "";

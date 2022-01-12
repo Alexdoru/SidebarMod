@@ -7,8 +7,7 @@ import net.minecraft.util.EnumChatFormatting;
 
 public class GuiScreenBackground extends GuiScreenSidebar {
 
-    private byte byte0 = -16;
-    private GuiScreen parent;
+    private final GuiScreen parent;
     private GuiButton buttonDone;
     private GuiSlider sliderRed;
     private GuiSlider sliderGreen;
@@ -33,7 +32,7 @@ public class GuiScreenBackground extends GuiScreenSidebar {
     }
 
     public int getRowPos(int rowNumber) {
-        return this.height / 4 + 24 * rowNumber - 24 + this.byte0;
+        return this.height / 4 + 24 * rowNumber - 40;
     }
 
     public int getCenter() {
