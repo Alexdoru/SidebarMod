@@ -1,11 +1,11 @@
-package fr.alexdoru.sidebarmod.gui.screen;
+package fr.alexdoru.sidebarmod.gui.config;
 
 import fr.alexdoru.sidebarmod.SidebarMod;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraftforge.fml.client.config.GuiSlider;
 
-public class GuiScreenBackground extends GuiScreenSidebar {
+public class ConfigGuiScreenColors extends ConfigGuiScreenWithSidebar {
 
     private final GuiScreen parent;
     private GuiButton buttonDone;
@@ -15,11 +15,12 @@ public class GuiScreenBackground extends GuiScreenSidebar {
     private GuiSlider sliderAlpha;
     private GuiSlider sliderChromaSpeed;
 
-    public GuiScreenBackground(GuiScreen parent, SidebarMod mod) {
+    public ConfigGuiScreenColors(GuiScreen parent, SidebarMod mod) {
         super(mod);
         this.parent = parent;
     }
 
+    @Override
     public void initGui() {
         this.buttonList.add(new GuiButton(0, getCenter() - 75, getRowPos(1), 150, 20, "Chroma: " + getSuffix(this.sidebar.chromaEnabled)));
         this.buttonList.add(this.sliderRed = new GuiSlider(1, getCenter() - 75, getRowPos(2), 150, 20, "Red: ", "", 0.0D, 255.0D, (this.sidebar.color >> 16 & 0xFF), false, true));
@@ -31,21 +32,15 @@ public class GuiScreenBackground extends GuiScreenSidebar {
         setSlidersVisibility();
     }
 
-    public int getRowPos(int rowNumber) {
-        return this.height / 4 + 24 * rowNumber - 40;
-    }
-
-    public int getCenter() {
-        return this.width / 2;
-    }
-
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
         updateSettings();
     }
 
-    protected void actionPerformed(GuiButton button) {
+    @Override
+    public void actionPerformed(GuiButton button) {
         switch (button.id) {
             case 0:
                 this.sidebar.chromaEnabled = !this.sidebar.chromaEnabled;
@@ -74,7 +69,4 @@ public class GuiScreenBackground extends GuiScreenSidebar {
         this.sidebar.chromaSpeed = this.sliderChromaSpeed.getValueInt();
     }
 
-    private String getSuffix(boolean enabled) {
-        return enabled ? (EnumChatFormatting.GREEN + "Enabled") : (EnumChatFormatting.RED + "Disabled");
-    }
 }
