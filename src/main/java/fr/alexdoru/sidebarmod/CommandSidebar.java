@@ -1,6 +1,6 @@
 package fr.alexdoru.sidebarmod;
 
-import fr.alexdoru.sidebarmod.gui.screen.GuiScreenSettings;
+import fr.alexdoru.sidebarmod.gui.config.ConfigGuiScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -16,18 +16,22 @@ public class CommandSidebar extends CommandBase {
         this.mod = mod;
     }
 
+    @Override
     public String getCommandName() {
         return "sidebarmod";
     }
 
+    @Override
     public String getCommandUsage(ICommandSender sender) {
         return "/sidebarmod";
     }
 
+    @Override
     public boolean canCommandSenderUseCommand(ICommandSender sender) {
         return true;
     }
 
+    @Override
     public void processCommand(ICommandSender sender, String[] args) {
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -35,6 +39,7 @@ public class CommandSidebar extends CommandBase {
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event) {
         MinecraftForge.EVENT_BUS.unregister(this);
-        Minecraft.getMinecraft().displayGuiScreen(new GuiScreenSettings(this.mod));
+        Minecraft.getMinecraft().displayGuiScreen(new ConfigGuiScreen(this.mod));
     }
+
 }
