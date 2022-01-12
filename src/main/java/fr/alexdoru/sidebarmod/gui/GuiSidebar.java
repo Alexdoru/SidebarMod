@@ -125,9 +125,3 @@ public class GuiSidebar extends Gui {
     } 
   }
 }
-
-
-/* Location:              D:\Minecraft\Mods\1.8.9 mods\[1.8.9] Sidebar Mod Revamp-deobf.jar!\revamp\sidebarmod\gui\GuiSidebar.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */

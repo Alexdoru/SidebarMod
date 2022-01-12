@@ -54,9 +54,3 @@ public class GuiScreenSidebar extends GuiScreen {
     this.mod.saveConfig();
   }
 }
-
-
-/* Location:              D:\Minecraft\Mods\1.8.9 mods\[1.8.9] Sidebar Mod Revamp-deobf.jar!\revamp\sidebarmod\gui\screen\GuiScreenSidebar.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */

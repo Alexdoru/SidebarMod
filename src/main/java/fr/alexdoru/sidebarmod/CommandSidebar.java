@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class CommandSidebar extends CommandBase {
+
   private SidebarMod mod;
   
   public CommandSidebar(SidebarMod mod) {
@@ -38,9 +39,3 @@ public class CommandSidebar extends CommandBase {
     Minecraft.getMinecraft().displayGuiScreen((GuiScreen)new GuiScreenSettings(this.mod));
   }
 }
-
-
-/* Location:              D:\Minecraft\Mods\1.8.9 mods\[1.8.9] Sidebar Mod Revamp-deobf.jar!\revamp\sidebarmod\CommandSidebar.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
