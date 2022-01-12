@@ -19,12 +19,10 @@ import java.io.File;
 
 @Mod(modid = "sidebarmod", name = "Sidebar Mod", version = "2.0", acceptedMinecraftVersions = "[1.8.9]")
 public class SidebarMod {
-  private Minecraft mc = Minecraft.getMinecraft();
-  
+
+  private final Minecraft mc = Minecraft.getMinecraft();
   private File saveFile;
-  
   private GuiSidebar guiSidebar;
-  
   private GuiSidebarIngame ingame;
   
   @EventHandler
@@ -122,9 +120,3 @@ public class SidebarMod {
     } 
   }
 }
-
-
-/* Location:              D:\Minecraft\Mods\1.8.9 mods\[1.8.9] Sidebar Mod Revamp-deobf.jar!\revamp\sidebarmod\SidebarMod.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       1.1.3
- */
