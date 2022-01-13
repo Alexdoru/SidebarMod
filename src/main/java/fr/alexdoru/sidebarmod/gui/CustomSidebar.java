@@ -17,6 +17,8 @@ import java.util.List;
 
 public class CustomSidebar extends Gui {
 
+    public static CustomSidebar INSTANCE;
+
     private final FontRenderer fontRendererObj = (Minecraft.getMinecraft()).fontRendererObj;
     private int sidebarX;
     private int sidebarY;
@@ -32,6 +34,10 @@ public class CustomSidebar extends Gui {
     public int alpha;
     public boolean chromaEnabled;
     public int chromaSpeed;
+
+    public CustomSidebar() {
+        INSTANCE = this;
+    }
 
     public boolean isMouseOverSidebar(int mouseX, int mouseY) {
         float relativeScale = this.scale - 1F;
