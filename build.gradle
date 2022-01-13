@@ -13,8 +13,8 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 version = "2.0"
-group = "fr.alexdoru" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "[1.8.9] Sidebar Mod Revamp"
+group = "fr.alexdoru"
+archivesBaseName = "[1.8.9] Sidebar Mod Reloaded"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
