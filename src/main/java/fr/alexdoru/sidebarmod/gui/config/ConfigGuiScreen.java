@@ -22,7 +22,7 @@ public class ConfigGuiScreen extends ConfigGuiScreenWithSidebar {
         this.buttonList.add(buttonShadow = new GuiButton(2, getCenter() - 75, getRowPos(3), 150, 20, "Shadow: " + getSuffix(this.sidebar.shadow)));
         this.buttonList.add(new GuiButton(3, getCenter() - 75, getRowPos(4), 150, 20, "Change Background"));
         this.buttonList.add(this.sliderScale = new GuiSlider(4, getCenter() - 75, getRowPos(5), 150, 20, "Scale: ", "%", 50.0D, 200.0D, Math.round(this.sidebar.scale * 100.0F), false, true));
-        this.buttonList.add(new GuiButton(5, getCenter() - 75, getRowPos(6), 150, 20, "Reset Sidebar"));
+        this.buttonList.add(new GuiButton(5, getCenter() - 75, getRowPos(6), 150, 20, "Reset Settings"));
     }
 
     @Override

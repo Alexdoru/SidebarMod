@@ -1,7 +1,7 @@
 package fr.alexdoru.sidebarmod.gui.config;
 
 import fr.alexdoru.sidebarmod.SidebarMod;
-import fr.alexdoru.sidebarmod.gui.GuiSidebar;
+import fr.alexdoru.sidebarmod.gui.CustomSidebar;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.scoreboard.ScoreObjective;
@@ -12,7 +12,7 @@ import java.io.IOException;
 public class ConfigGuiScreenWithSidebar extends GuiScreen {
 
     protected final SidebarMod mod;
-    protected final GuiSidebar sidebar;
+    protected final CustomSidebar sidebar;
     private boolean dragging;
     private int lastX;
     private int lastY;
@@ -42,7 +42,7 @@ public class ConfigGuiScreenWithSidebar extends GuiScreen {
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
-        if (this.sidebar.contains(mouseX, mouseY)) {
+        if (this.sidebar.isMouseOverSidebar(mouseX, mouseY)) {
             this.dragging = true;
         }
     }

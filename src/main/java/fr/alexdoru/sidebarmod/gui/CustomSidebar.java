@@ -15,9 +15,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuiSidebar extends Gui {
+public class CustomSidebar extends Gui {
 
-    private final FontRenderer fr = (Minecraft.getMinecraft()).fontRendererObj;
+    private final FontRenderer fontRendererObj = (Minecraft.getMinecraft()).fontRendererObj;
     private int sidebarX;
     private int sidebarY;
     private int sidebarWidth;
@@ -33,63 +33,63 @@ public class GuiSidebar extends Gui {
     public boolean chromaEnabled;
     public int chromaSpeed;
 
-    public boolean contains(int mouseX, int mouseY) {
-        float mscale = this.scale - 1.0F;
-        float minX = this.sidebarX - this.sidebarWidth * mscale;
+    public boolean isMouseOverSidebar(int mouseX, int mouseY) {
+        float relativeScale = this.scale - 1F;
+        float minX = this.sidebarX - this.sidebarWidth * relativeScale;
         float maxX = minX + this.sidebarWidth * this.scale;
-        float maxY = (this.sidebarY + ((float) this.sidebarHeight / 2)) * mscale;
+        float maxY = this.sidebarY + (this.sidebarHeight / 2f) * relativeScale;
         float minY = maxY - this.sidebarHeight * this.scale;
-        return (mouseX > minX && mouseX < maxX && mouseY > minY - this.fr.FONT_HEIGHT * this.scale && mouseY < maxY);
+        return (mouseX > minX && mouseX < maxX && mouseY > minY - this.fontRendererObj.FONT_HEIGHT * this.scale && mouseY < maxY);
     }
 
     public void drawSidebar(ScoreObjective scoreObjective, ScaledResolution scaledResolution) {
         if (!this.enabled) {
             return;
         }
-        FontRenderer fr = (Minecraft.getMinecraft()).fontRendererObj;
         Scoreboard scoreboard = scoreObjective.getScoreboard();
-        List<Score> scores = new ArrayList<>();
-        this.sidebarWidth = fr.getStringWidth(scoreObjective.getDisplayName());
+        List<Score> scoreList = new ArrayList<>();
+        int width = fontRendererObj.getStringWidth(scoreObjective.getDisplayName());
         for (Score score : scoreboard.getSortedScores(scoreObjective)) {
             String name = score.getPlayerName();
-            if (scores.size() < 15 && name != null && !name.startsWith("#")) {
+            if (scoreList.size() < 15 && name != null && !name.startsWith("#")) {
                 ScorePlayerTeam scorePlayerTeam = scoreboard.getPlayersTeam(name);
-                String s2 = this.redNumbers ? (": " + EnumChatFormatting.RED + score.getScorePoints()) : "";
-                String str = ScorePlayerTeam.formatPlayerName(scorePlayerTeam, name) + s2;
-                this.sidebarWidth = Math.max(this.sidebarWidth, fr.getStringWidth(str));
-                scores.add(score);
+                String str = ScorePlayerTeam.formatPlayerName(scorePlayerTeam, name) + (this.redNumbers ? (": " + EnumChatFormatting.RED + score.getScorePoints()) : "");
+                width = Math.max(width, fontRendererObj.getStringWidth(str));
+                scoreList.add(score);
             }
         }
-        this.sidebarHeight = scores.size() * fr.FONT_HEIGHT;
+        this.sidebarWidth = width;
+        this.sidebarHeight = scoreList.size() * fontRendererObj.FONT_HEIGHT;
         this.sidebarX = scaledResolution.getScaledWidth() - this.sidebarWidth - 3 + this.offsetX;
-        this.sidebarY = scaledResolution.getScaledHeight() / 2 + this.sidebarHeight / 3 + this.offsetY;
+        this.sidebarY = (scaledResolution.getScaledHeight() + this.sidebarHeight) / 2 + this.offsetY;
         int scalePointX = this.sidebarX + this.sidebarWidth;
         int scalePointY = this.sidebarY - this.sidebarHeight / 2;
-        float mscale = this.scale - 1.0F;
-        GL11.glTranslatef(-scalePointX * mscale, -scalePointY * mscale, 0.0F);
+        float relativeScale = this.scale - 1.0F;
+        GL11.glTranslatef(-scalePointX * relativeScale, -scalePointY * relativeScale, 0.0F);
         GL11.glScalef(this.scale, this.scale, 1.0F);
         int index = 0;
-        for (Score score : scores) {
+        int color = getColor(false);
+        int scoreX = this.sidebarX + this.sidebarWidth + 1;
+        for (Score score : scoreList) {
             index++;
             ScorePlayerTeam team = scoreboard.getPlayersTeam(score.getPlayerName());
             String s1 = ScorePlayerTeam.formatPlayerName(team, score.getPlayerName());
             String s2 = EnumChatFormatting.RED + "" + score.getScorePoints();
-            if (!this.redNumbers)
-                s2 = "";
-            int scoreX = this.sidebarX + this.sidebarWidth + 1;
-            int scoreY = this.sidebarY - index * fr.FONT_HEIGHT;
-            drawRect(this.sidebarX - 2, scoreY, scoreX, scoreY + fr.FONT_HEIGHT, getColor(false));
+            int scoreY = this.sidebarY - index * fontRendererObj.FONT_HEIGHT;
+            drawRect(this.sidebarX - 2, scoreY, scoreX, scoreY + fontRendererObj.FONT_HEIGHT, color);
             drawString(s1, this.sidebarX, scoreY);
-            drawString(s2, scoreX - fr.getStringWidth(s2), scoreY);
-            if (index == scores.size()) {
+            if (this.redNumbers) {
+                drawString(s2, scoreX - fontRendererObj.getStringWidth(s2), scoreY);
+            }
+            if (index == scoreList.size()) {
                 String s3 = scoreObjective.getDisplayName();
-                drawRect(this.sidebarX - 2, scoreY - fr.FONT_HEIGHT - 1, scoreX, scoreY - 1, getColor(true));
-                drawRect(this.sidebarX - 2, scoreY - 1, scoreX, scoreY, getColor(false));
-                drawString(s3, this.sidebarX + (this.sidebarWidth - fr.getStringWidth(s3)) / 2, scoreY - fr.FONT_HEIGHT);
+                drawRect(this.sidebarX - 2, scoreY - fontRendererObj.FONT_HEIGHT - 1, scoreX, scoreY - 1, getColor(true));
+                drawRect(this.sidebarX - 2, scoreY - 1, scoreX, scoreY, color);
+                drawString(s3, this.sidebarX + (this.sidebarWidth - fontRendererObj.getStringWidth(s3)) / 2, scoreY - fontRendererObj.FONT_HEIGHT);
             }
         }
         GL11.glScalef(1.0F / this.scale, 1.0F / this.scale, 1.0F);
-        GL11.glTranslatef(scalePointX * mscale, scalePointY * mscale, 0.0F);
+        GL11.glTranslatef(scalePointX * relativeScale, scalePointY * relativeScale, 0.0F);
     }
 
     private int getColor(boolean darker) {
@@ -110,9 +110,9 @@ public class GuiSidebar extends Gui {
 
     private void drawString(String str, int x, int y) {
         if (this.shadow) {
-            this.fr.drawStringWithShadow(str, x, y, -1);
+            this.fontRendererObj.drawStringWithShadow(str, x, y, -1);
         } else {
-            this.fr.drawString(str, x, y, -1);
+            this.fontRendererObj.drawString(str, x, y, -1);
         }
     }
 }
