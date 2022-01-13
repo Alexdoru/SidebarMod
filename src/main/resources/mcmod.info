@@ -1,12 +1,12 @@
 [
   {
     "modid": "sidebarmod",
-    "name": "Sidebar Mod Revamp",
+    "name": "Sidebar Mod Reloaded",
     "description": "Customize your sidebar by changing size, background color, and many more options.",
     "version": "${version}",
     "mcversion": "${mcversion}",
     "url": "",
-    "authorList": ["canelex", "powns"],
+    "authorList": ["canelex", "powns", "Alexdoru"],
     "credits": "Original version / design made by dewgs.",
     "logoFile": "",
     "screenshots": [],
