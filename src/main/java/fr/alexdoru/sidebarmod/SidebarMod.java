@@ -1,6 +1,6 @@
 package fr.alexdoru.sidebarmod;
 
-import fr.alexdoru.sidebarmod.gui.GuiSidebar;
+import fr.alexdoru.sidebarmod.gui.CustomSidebar;
 import fr.alexdoru.sidebarmod.gui.GuiSidebarIngame;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.ClientCommandHandler;
@@ -22,7 +22,7 @@ public class SidebarMod {
     private final Minecraft mc = Minecraft.getMinecraft();
     private File configFile;
     private Configuration config;
-    private GuiSidebar guiSidebar;
+    private CustomSidebar customSidebar;
     private GuiSidebarIngame ingame;
 
     @EventHandler
@@ -34,7 +34,7 @@ public class SidebarMod {
     public void init(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(this);
         ClientCommandHandler.instance.registerCommand(new CommandSidebar(this));
-        this.guiSidebar = new GuiSidebar();
+        this.customSidebar = new CustomSidebar();
         this.ingame = new GuiSidebarIngame(this, this.mc);
         config = new Configuration(this.configFile);
         loadConfig();
@@ -46,8 +46,8 @@ public class SidebarMod {
             this.mc.ingameGUI = this.ingame;
     }
 
-    public GuiSidebar getSidebarGui() {
-        return this.guiSidebar;
+    public CustomSidebar getSidebarGui() {
+        return this.customSidebar;
     }
 
     public void saveConfig() {
@@ -63,63 +63,63 @@ public class SidebarMod {
     private void updateConfig(Configuration config, boolean load) {
         Property prop = config.get("General", "enabled", true);
         if (load) {
-            this.guiSidebar.enabled = prop.getBoolean();
+            this.customSidebar.enabled = prop.getBoolean();
         } else {
-            prop.setValue(this.guiSidebar.enabled);
+            prop.setValue(this.customSidebar.enabled);
         }
         prop = config.get("General", "offsetX", 0);
         if (load) {
-            this.guiSidebar.offsetX = prop.getInt();
+            this.customSidebar.offsetX = prop.getInt();
         } else {
-            prop.setValue(this.guiSidebar.offsetX);
+            prop.setValue(this.customSidebar.offsetX);
         }
         prop = config.get("General", "offsetY", 0);
         if (load) {
-            this.guiSidebar.offsetY = prop.getInt();
+            this.customSidebar.offsetY = prop.getInt();
         } else {
-            prop.setValue(this.guiSidebar.offsetY);
+            prop.setValue(this.customSidebar.offsetY);
         }
         prop = config.get("General", "scale", 1.0D);
         if (load) {
-            this.guiSidebar.scale = (float) prop.getDouble();
+            this.customSidebar.scale = (float) prop.getDouble();
         } else {
-            prop.setValue(this.guiSidebar.scale);
+            prop.setValue(this.customSidebar.scale);
         }
         prop = config.get("General", "rednumbers", true);
         if (load) {
-            this.guiSidebar.redNumbers = prop.getBoolean();
+            this.customSidebar.redNumbers = prop.getBoolean();
         } else {
-            prop.setValue(this.guiSidebar.redNumbers);
+            prop.setValue(this.customSidebar.redNumbers);
         }
         prop = config.get("General", "shadow", false);
         if (load) {
-            this.guiSidebar.shadow = prop.getBoolean();
+            this.customSidebar.shadow = prop.getBoolean();
         } else {
-            prop.setValue(this.guiSidebar.shadow);
+            prop.setValue(this.customSidebar.shadow);
         }
         prop = config.get("Color", "rgb", 0);
         if (load) {
-            this.guiSidebar.color = prop.getInt();
+            this.customSidebar.color = prop.getInt();
         } else {
-            prop.setValue(this.guiSidebar.color);
+            prop.setValue(this.customSidebar.color);
         }
         prop = config.get("Color", "alpha", 50);
         if (load) {
-            this.guiSidebar.alpha = prop.getInt();
+            this.customSidebar.alpha = prop.getInt();
         } else {
-            prop.setValue(this.guiSidebar.alpha);
+            prop.setValue(this.customSidebar.alpha);
         }
         prop = config.get("Chroma", "enabled", false);
         if (load) {
-            this.guiSidebar.chromaEnabled = prop.getBoolean();
+            this.customSidebar.chromaEnabled = prop.getBoolean();
         } else {
-            prop.setValue(this.guiSidebar.chromaEnabled);
+            prop.setValue(this.customSidebar.chromaEnabled);
         }
         prop = config.get("Chroma", "speed", 2);
         if (load) {
-            this.guiSidebar.chromaSpeed = prop.getInt();
+            this.customSidebar.chromaSpeed = prop.getInt();
         } else {
-            prop.setValue(this.guiSidebar.chromaSpeed);
+            prop.setValue(this.customSidebar.chromaSpeed);
         }
     }
 }
