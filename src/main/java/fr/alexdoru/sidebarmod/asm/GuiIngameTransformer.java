@@ -27,7 +27,6 @@ public class GuiIngameTransformer implements IClassTransformer {
                             false));
                     list.add(new InsnNode(RETURN));
                     methodNode.instructions.insertBefore(methodNode.instructions.getFirst(), list);
-                    System.out.println("-------------TRANSFORMED GUI INGAME");
                     break;
                 }
             }
