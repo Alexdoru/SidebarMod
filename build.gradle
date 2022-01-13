@@ -30,6 +30,14 @@ dependencies {
 
 }
 
+jar {
+    appendix = minecraft.version
+    manifest.attributes(
+            "FMLCorePlugin": 'fr.alexdoru.sidebarmod.asm.ASMLoadingPlugin',
+            'FMLCorePluginContainsFMLMod': 'Yes, yes it does'
+    )
+}
+
 processResources
         {
             // this will ensure that this task is redone when the versions change.
