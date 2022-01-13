@@ -1,5 +1,6 @@
-package fr.alexdoru.sidebarmod;
+package fr.alexdoru.sidebarmod.command;
 
+import fr.alexdoru.sidebarmod.SidebarMod;
 import fr.alexdoru.sidebarmod.gui.config.ConfigGuiScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;

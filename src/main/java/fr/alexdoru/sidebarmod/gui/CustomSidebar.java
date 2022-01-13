@@ -42,6 +42,9 @@ public class CustomSidebar extends Gui {
         return (mouseX > minX && mouseX < maxX && mouseY > minY - this.fontRendererObj.FONT_HEIGHT * this.scale && mouseY < maxY);
     }
 
+    /**
+     * Method call inject via ASM
+     */
     public void drawSidebar(ScoreObjective scoreObjective, ScaledResolution scaledResolution) {
         if (!this.enabled) {
             return;

@@ -1,8 +1,7 @@
 package fr.alexdoru.sidebarmod;
 
+import fr.alexdoru.sidebarmod.command.CommandSidebar;
 import fr.alexdoru.sidebarmod.gui.CustomSidebar;
-import fr.alexdoru.sidebarmod.gui.GuiSidebarIngame;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
@@ -11,19 +10,15 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.io.File;
 
 @Mod(modid = "sidebarmod", name = "Sidebar Mod", version = "2.0", acceptedMinecraftVersions = "[1.8.9]")
 public class SidebarMod {
 
-    private final Minecraft mc = Minecraft.getMinecraft();
     private File configFile;
     private Configuration config;
     private CustomSidebar customSidebar;
-    private GuiSidebarIngame ingame;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -35,15 +30,8 @@ public class SidebarMod {
         MinecraftForge.EVENT_BUS.register(this);
         ClientCommandHandler.instance.registerCommand(new CommandSidebar(this));
         this.customSidebar = new CustomSidebar();
-        this.ingame = new GuiSidebarIngame(this, this.mc);
         config = new Configuration(this.configFile);
         loadConfig();
-    }
-
-    @SubscribeEvent
-    public void onClientTick(TickEvent.ClientTickEvent event) { // TODO delete that and call via ASM
-        if (!(this.mc.ingameGUI instanceof GuiSidebarIngame))
-            this.mc.ingameGUI = this.ingame;
     }
 
     public CustomSidebar getSidebarGui() {
