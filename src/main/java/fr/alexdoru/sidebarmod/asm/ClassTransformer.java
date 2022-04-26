@@ -8,8 +8,8 @@ public class ClassTransformer implements IClassTransformer {
         if (basicClass == null) {
             return null;
         }
-        if (transformedName.equals("net.minecraft.client.gui.GuiIngame")) {
-            return new GuiIngameTransformer().transform(name, transformedName, basicClass);
+        if (transformedName.equals("net.minecraftforge.client.GuiIngameForge")) {
+            return new GuiIngameForgeTransformer().transform(name, transformedName, basicClass);
         }
         return basicClass;
     }
