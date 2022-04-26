@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import java.io.File;
 
-@Mod(modid = "sidebarmod", name = "Sidebar Mod", version = "2.0", acceptedMinecraftVersions = "[1.8.9]")
+@Mod(modid = "sidebarmod", name = "Sidebar Mod", version = "2.1", acceptedMinecraftVersions = "[1.8.9]")
 public class SidebarMod {
 
     private File configFile;
