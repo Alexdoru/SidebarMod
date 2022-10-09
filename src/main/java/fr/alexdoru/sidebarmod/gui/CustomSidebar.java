@@ -19,7 +19,8 @@ public class CustomSidebar extends Gui {
 
     public static CustomSidebar INSTANCE;
 
-    private final FontRenderer fontRendererObj = (Minecraft.getMinecraft()).fontRendererObj;
+    private final Minecraft mc = Minecraft.getMinecraft();
+    private final FontRenderer fontRendererObj = mc.fontRendererObj;
     private int sidebarX;
     private int sidebarY;
     private int sidebarWidth;
@@ -55,6 +56,7 @@ public class CustomSidebar extends Gui {
         if (!this.enabled) {
             return;
         }
+        mc.mcProfiler.startSection("scoreboard");
         Scoreboard scoreboard = scoreObjective.getScoreboard();
         List<Score> scoreList = new ArrayList<>();
         int width = fontRendererObj.getStringWidth(scoreObjective.getDisplayName());
@@ -99,6 +101,7 @@ public class CustomSidebar extends Gui {
         }
         GL11.glScalef(1.0F / this.scale, 1.0F / this.scale, 1.0F);
         GL11.glTranslatef(scalePointX * relativeScale, scalePointY * relativeScale, 0.0F);
+        mc.mcProfiler.endSection();
     }
 
     private int getColor(boolean darker) {
