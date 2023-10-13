@@ -24,7 +24,7 @@ public class ClassTransformer implements IClassTransformer, Opcodes {
     private static byte[] transformGuiIngameForge(byte[] basicClass) {
         ClassNode classNode = new ClassNode();
         ClassReader classReader = new ClassReader(basicClass);
-        classReader.accept(classNode, ClassReader.SKIP_DEBUG);
+        classReader.accept(classNode, 0);
         for (MethodNode methodNode : classNode.methods) {
             if (methodNode.name.equals(ASMLoadingPlugin.isObf ? "a" : "renderGameOverlay") && methodNode.desc.equals("(F)V")) {
                 for (AbstractInsnNode insnNode : methodNode.instructions.toArray()) {
